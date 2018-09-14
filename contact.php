@@ -2,9 +2,14 @@
 $title=" - Contact";
 include('header.php');
 ?>
-
-<div class="container-fluid my-5 py-5" action="displaymessage.php" method="post">
-  <div class="row p-3 mt-5 mb-4">
+<nav aria-label="breadcrumb" class="breadMargin">
+  <ol class="breadcrumb mt-5">
+    <li class="breadcrumb-item mt-5" aria-current="page"><a href="index.php">Accueil</a></li>
+    <li class="breadcrumb-item active mt-5" aria-current="page">Contact</li>
+  </ol>
+</nav>
+<div class="container-fluid mb-5 py-5" action="displaymessage.php" method="post">
+  <div class="row p-3 mb-4">
 
     <form class="col-md-6 mx-auto">
       <div class="form-group">

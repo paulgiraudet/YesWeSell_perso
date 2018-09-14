@@ -19,12 +19,26 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body>
+<body class="pt-4">
 
   <header>
-    <nav class="d-flex justify-content-between p-2 mx-4">
-      <a href="index.php" class="logo"><h1><span class="colorTouch">Y</span>es <span class="colorTouch">W</span>e <span class="colorTouch">S</span>ell</h1></a>
-      <a href="index.php" class="menu">Accueil</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.php"><h1><span class="colorTouch">Y</span>es <span class="colorTouch">W</span>e <span class="colorTouch">S</span>ell</h1></a>
+      <button class="navbar-toggler ml-auto mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item ml-auto">
+            <a class="menu mr-2" href="index.php">Accueil <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ml-auto">
+            <a class="menu mr-2 mx-2" href="contact.php">Contact</a>
+          </li>
+        </ul>
+      </div>
     </nav>
 
   </header>

@@ -143,8 +143,8 @@ h1{
 
 header .menu{
   color:black;
-  font-size:25px;
-  margin-top:25px;
+  font-size:20px;
+  /* margin-top:25px; */
   transition:all 0.3s;
   height:40px;
 }
