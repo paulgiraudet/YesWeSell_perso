@@ -26,7 +26,7 @@ $products = [
     'picture' => 'basket4_blanc.png'
   ]
 ];
-$title=$products[$_GET['index']]['name'];
+$title = " - " . $products[$_GET['index']]['name'];
 include('header.php');
 
 ?>

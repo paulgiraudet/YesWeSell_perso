@@ -1,6 +1,6 @@
 <?php
 $index="";
-$title="YesWeSell";
+$title=" - Accueil";
 include('header.php');
 ?>
   <nav aria-label="breadcrumb" class="breadMargin">
