@@ -39,6 +39,13 @@ include('header.php');
     </ol>
   </nav>
 
+  <div id="addValidation" class="bg-success">
+    <div class="d-flex">
+      <p class="py-2 mx-auto pl-5 mt-2">Votre article a bien été ajouté au panier !</p>
+      <i class="fas fa-times-circle fa-2x my-auto mr-3" id="closeValidation"></i>
+    </div>
+  </div>
+
   <div class="container my-4 pb-3">
 
     <div class="row p-0">
@@ -84,8 +91,10 @@ include('header.php');
             44
           </div>
         </div>
-
-        <p class="description mt-2"><?php echo $products[$_GET['index']]['price'] ?></p>
+        <div class="d-flex justify-content-between">
+          <p class="description mt-2"><?php echo $products[$_GET['index']]['price'] ?></p>
+          <button type="submit" class="btn colorButton" id="addCart">Ajouter au panier</button>
+        </div>
       </div>
 
     </div>

@@ -3,6 +3,7 @@
 $(document).ready(function(){
 
   var clickActive = $(".clickActive");
+  $("#addValidation").hide();
 
 $(".clickActive").click(function(){
 
@@ -16,4 +17,11 @@ $(".clickActive").click(function(){
 
 });
 
+$("#addCart").click(function(){
+  $("#addValidation").show();
+});
+
+$("#closeValidation").click(function(){
+  $("#addValidation").hide();
+});
 });
