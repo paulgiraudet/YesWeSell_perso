@@ -107,10 +107,7 @@ textarea {
 
 body{
   background:rgba(240,240,240);
-  /* background:red; */
-  /* position: absolute; */
   min-height:100%;
-  /* overflow-y:hidden; */
 }
 header{
   position:fixed;
@@ -141,17 +138,29 @@ h1{
   text-decoration: none;
 }
 
+.menu, .disabled{
+  color:rgba(0,0,0,0.7);
+}
+
 .menu{
-  color:black;
-  font-size:20px;
-  /* margin-top:25px; */
+  font-size:18px;
   transition:all 0.3s;
-  height:40px;
+}
+
+.disabled{
+  font-size:17px;
+  opacity:0.3;
+}
+
+.disabled:hover{
+  text-decoration:none;
+  color:black;
+  cursor: default;
 }
 
 .menu:hover{
   text-decoration: none;
-  color:#ED0000;
+  color:#ED0000 !important;
 }
 
 .breadcrumb{

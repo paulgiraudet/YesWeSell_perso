@@ -32,10 +32,33 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item ml-auto">
-            <a class="menu mr-2" href="index.php">Accueil <span class="sr-only">(current)</span></a>
+            <a class="menu mx-2" href="index.php">Accueil <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item ml-auto">
-            <a class="menu mr-2 mx-2" href="contact.php">Contact</a>
+            <a class="menu mx-2" href="contact.php">Contact</a>
+          </li>
+          <li class="nav-item ml-auto dropdown">
+        <a class="menu dropdown-toggle mx-2" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Se connecter
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <!-- <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a> -->
+          <form class="p-2" method="post" action="admin.php">
+            <!-- <div class="input-group"> -->
+              <!-- <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@</span>
+              </div> -->
+              <input type="text" class="form-control my-1" placeholder="Login">
+              <input type="text" class="form-control my-1" placeholder="Mot de Passe">
+              <input type="submit" name="connexionButton" value="Log In" class="btn w-100 my-1 colorButton">
+            <!-- </div> -->
+          </form>
+        </div>
+      </li>
+          <li class="nav-item ml-auto">
+            <a class="disabled mx-2 font-italic" href="">Panier(<span id="cartItem">0</span>)</a>
           </li>
         </ul>
       </div>

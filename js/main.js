@@ -4,7 +4,7 @@ $(document).ready(function(){
 
   var clickActive = $(".clickActive");
   $("#addValidation").hide();
-
+  var numberCartItem = 0;
 $(".clickActive").click(function(){
 
   //cleaning all active
@@ -19,6 +19,8 @@ $(".clickActive").click(function(){
 
 $("#addCart").click(function(){
   $("#addValidation").show();
+  numberCartItem++;
+  $("#cartItem").html(numberCartItem);
 });
 
 $("#closeValidation").click(function(){

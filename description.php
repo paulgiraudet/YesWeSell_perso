@@ -41,8 +41,8 @@ include('header.php');
 
   <div id="addValidation" class="bg-success">
     <div class="d-flex">
-      <p class="py-2 mx-auto pl-5 mt-2">Votre article a bien été ajouté au panier !</p>
-      <i class="fas fa-times-circle fa-2x my-auto mr-3" id="closeValidation"></i>
+      <p class="py-2 mx-auto pl-5 mt-2 font-italic">Votre article a bien été ajouté au panier !</p>
+      <i class="fas fa-times-circle my-auto mr-3" id="closeValidation"></i>
     </div>
   </div>
 
