@@ -100,6 +100,12 @@ textarea {
 /* ================================================
   menu
   ============================================== */
+.pls{
+  margin-top:350px;
+  color:black;
+  font-size:50px;
+}
+
 @font-face{
   src:url('../font/Scorched.otf');
   font-family:'scorched';
@@ -109,6 +115,8 @@ body{
   background:rgba(240,240,240);
   min-height:100%;
 }
+
+/* fixed header */
 header{
   position:fixed;
   top:0;
@@ -118,6 +126,7 @@ header{
   z-index:10;
 }
 
+/* in order to add our third color with little touch */
 .colorTouch{
   color:#ED0000;
 }
@@ -134,86 +143,79 @@ h1{
   user-select: none;
 }
 
-.logo:hover{
-  text-decoration: none;
-}
-
+/* navbar links */
 .menu, .disabled{
   color:rgba(0,0,0,0.7);
 }
-
 .menu{
   font-size:18px;
   transition:all 0.3s;
 }
-
 .disabled{
   font-size:17px;
   opacity:0.3;
 }
-
 .disabled:hover{
   text-decoration:none;
   color:black;
   cursor: default;
 }
-
 .menu:hover{
   text-decoration: none;
   color:#ED0000 !important;
 }
 
+
+/* breadcrumb and stuff */
 .breadcrumb{
   background:rgba(240,240,240);
   border-bottom:1px solid rgba(0,0,0,0.1);
   border-radius:0;
 }
-
 .breadcrumb a{
   color:#ED0000;
   transition:all 0.3s;
 }
-
 .breadcrumb a:hover{
   text-decoration: none;
   opacity:0.5;
 }
-
 .breadMargin{
   margin-top:60px;
 }
 
+/* main productsList in the home page */
 .productsList a{
   color:black;
 }
-
 .productsList a:hover{
   text-decoration: none;
 }
 
+/* each product of our list */
 .product{
   border:1px solid transparent;
   transition: all 0.3s;
 }
-
 .product:hover{
   border-color:#ED0000;
 }
 
+
+/* description page */
 .basketImage img{
   width:450px;
 }
-
 .description{
   font-size:25px;
   color:rgba(0,0,0,0.7);
 }
-
 .aboutDescription{
   font-size:18px;
   color:rgba(0,0,0,0.5);
 }
 
+/* little black squares */
 .firstColor, .secondColor, .thirdColor, .shoeSize{
   width:55px;
   height:55px;
@@ -221,49 +223,53 @@ h1{
   margin-right:20px;
 }
 
+/* showing the user he can click to "select" the shoe size */
+.shoeSize{
+  cursor:pointer;
+}
 .activeTouch{
   border-color:#ED0000;
 }
 
+/* icon style */
 i{
   color:black;
   transition:all 0.3s;
   cursor:pointer;
 }
-
 i:hover{
   color:#ED0000;
 }
+
 
 footer{
   position: relative;
   bottom:0;
 }
 
+/* using our third color on our form */
 .form-control:focus {
   border-color: #ED0000;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
 }
 
+/* special button style */
 .colorButton{
   background:#ED0000;
   color:white;
   opacity:0.7;
   transition:0.3s all;
 }
-
 .colorButton:hover{
   opacity:1;
 }
 
+/* used for pages with few content */
 .onepage{
   min-height:100vh;
 }
 
-.validMessage{
-  /* margin-top:350px; */
-}
-
+/* user message sent with contact page */
 .messageUser{
   background:white;
   border-radius:10px;
@@ -272,6 +278,7 @@ footer{
   padding:10px;
 }
 
+/* for our checkbox and labels to get aligned in admin page*/
 .shoeSizeList input{
   vertical-align: middle;
 }

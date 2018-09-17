@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 try {
   $bdd = new PDO('mysql:host=localhost;dbname=YesWeSell;charset=utf8', 'root', 'Atbocslat1', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
@@ -8,54 +9,55 @@ catch (\Exception $e) {
 }
 
 
-//on vérifie s'il n'y a pas d'erreur avec les champs requis
+//we check if there is no errors with the required fields
 if (empty($_POST['name']) OR empty($_POST['description']) OR empty($_POST['price'])){
 
   echo "error";
 
 }
 
-//si tout est bien définie on peut commencer les vérifications
+//starting verifications
 else if (isset($_POST['name']) AND isset($_POST['description']) AND isset($_POST['price'])) {
 
-  //on met toutes les pointures dans un tableau
+  //puting all the shoes sizes in an array
   $shoeSizeArray = $_POST['shoe_size'];
 
-  //si le tableau est vide (pas de pointure) on empêche tout l'ajout
+  //if the array is empty we stop the verifications
   if(empty($shoeSizeArray)){
 
     echo("Quelle(s) pointure(s) est/sont disponible(s) ?");
 
   }
 
-
+  // one step further
   else{
 
-    //on vérifie la présence et la validité de l'image
+    //checking image validity
     if (isset($_FILES['monfichier']) AND $_FILES['monfichier']['error'] == 0){
 
-      //avec une taille maximum de 1 Mo
+      //max size at 1 Mo
       if ($_FILES['monfichier']['size'] <= 1000000){
 
-        //on récupère l'extension de l'image envoyée
+        //getting the file extension
         $infosfichier = pathinfo($_FILES['monfichier']['name']);
         $extension_upload = $infosfichier['extension'];
-        //extensions autorisées
+        //authorized extensions
         $extensions_autorisees = array('png', 'jpeg', 'jpg');
 
-        //on vient comparer l'extension de notre image avec les extensions d'image autorisées
-        //finalement on rentre dans cette condition que si tous les tests sont passés
+        //we compare our file extension with the differents authorized extensions
+        //we are getting here only if all the differents tests are ok
         if (in_array($extension_upload, $extensions_autorisees)){
 
-          //on renome notre image de façon unique avec la fonction time() qui nous renvoie le timestamp actuel
+          // getting the image name
           $nameImage = $infosfichier['filename'];
+          //using time() function in order to give our file an unique name with the timestamp
           $file = '' .time(). '' . $nameImage . '.' . $extension_upload;
 
-          //on déplace notre image dans le bon dossier avec son nouveau nom
+          //moving the image in the good folder with its new name
           move_uploaded_file($_FILES['monfichier']['tmp_name'], 'img/' . $file);
 
 
-          //première requête pour ajouter nos informations principales à notre table produit
+          //first request to add the main information about our product in the first table shoes_description
           $productReq = $bdd->prepare('INSERT INTO shoes_description(name, description, price) VALUES(:name, :description, :price)');
           $productReq->execute(array(
             'name' => $name = $_POST['name'],
@@ -65,38 +67,40 @@ else if (isset($_POST['name']) AND isset($_POST['description']) AND isset($_POST
 
           $productReq->closeCursor();
 
-          //on récupère le dernier ID ajouté dans une table pour pouvoir l'attribuer à nos images et pointures
+          //saving the last id added in order to link this special id to the image and the shoe sizes
           $id_shoes = $bdd->lastInsertId();
 
 
-          //deuxième requête pour ajouter notre image liée à notre fiche produit
+          //second request to add the image linked to the good product
           $imageReq = $bdd->prepare('INSERT INTO shoes_image(name, id_shoes) VALUES(:name_image, :idshoes)');
           $imageReq->execute(array(
             'name_image' => $name_image = 'img/' . $file,
-            //on insère l'id de notre produit pour le lier à l'image
+            //putting the product id
             'idshoes' => $id_shoes
           ));
 
           $imageReq->closeCursor();
 
 
-          //troisième requête pour ajouter nos pointures liées à notre fiche produit
+          //last request to add our shoe sizes linked to the good product
 
-          //ici on ajoute les pointures une à une dans notre table shoes_size
+          //using foreach to add every single shoe size checked to our special table
           foreach ($shoeSizeArray as $sizes) {
 
             $sizeReq = $bdd->prepare('INSERT INTO shoes_size(size, id_shoes) VALUES(:size, :idshoes)');
             $sizeReq->execute(array(
               'size'=> $sizes,
-              //on insère l'id de notre produit pour le lier à chaque pointure cochée dans le formulaire
+              //keeping the same id from our product for every shoe size
               'idshoes' => $id_shoes
             ));
 
             $sizeReq->closeCursor();
+            header('location: admin.php');
+            exit;
           }
         }
 
-//différentes erreurs renvoyées selon l'avancée dans les tests de conditions
+//severals errors defined by the step where we didn't pass the test
 
         else{
           echo "Mauvaise extension de fichier; les extensions autorisées sont png, jpg et jpeg.";
@@ -120,4 +124,8 @@ else{
   echo "Formulaire incorrect";
 
 }
+
+
 ?>
+
+<a href="index.php"><button type="button" name="button" class="btn colorButton">Retour à l'accueil</button></a>

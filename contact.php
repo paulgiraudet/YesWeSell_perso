@@ -1,4 +1,7 @@
 <?php
+//starting session at the start of each page
+session_start();
+
 $title = " - Contact";
 include('header.php');
 ?>

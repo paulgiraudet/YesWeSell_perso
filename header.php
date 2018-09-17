@@ -1,7 +1,6 @@
 <?php
 
-session_start();
-
+//connexion to the sql database
 try {
   $bdd = new PDO('mysql:host=localhost;dbname=YesWeSell;charset=utf8', 'root', 'Atbocslat1', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
@@ -16,6 +15,7 @@ catch (\Exception $e) {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!-- changing title compared to the actual page -->
   <title>YesWeSell<?php echo $title; ?></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,6 +35,7 @@ catch (\Exception $e) {
 
   <header>
 
+    <!-- responsive navbar with bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="index.php"><h1><span class="colorTouch">Y</span>es <span class="colorTouch">W</span>e <span class="colorTouch">S</span>ell</h1></a>
       <button class="navbar-toggler ml-auto mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,18 +50,40 @@ catch (\Exception $e) {
           <li class="nav-item ml-auto">
             <a class="menu mx-2" href="contact.php">Contact</a>
           </li>
-          <li class="nav-item ml-auto dropdown">
-        <a class="menu dropdown-toggle mx-2" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Se connecter
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <form class="p-2" method="post" action="admin.php">
-              <input type="text" class="form-control my-1" placeholder="Login" name="username">
-              <input type="text" class="form-control my-1" placeholder="Mot de Passe" name="motdepasse">
-              <input type="submit" name="connexionButton" value="Log In" class="btn w-100 my-1 colorButton">
-          </form>
-        </div>
-      </li>
+
+          <?php
+          //checking if we are connected to the admin session
+          if(isset($_SESSION['username']) AND isset($_SESSION['password'])){
+            ?>
+            <!-- displaying disconnecting link -->
+            <li class="nav-item ml-auto">
+              <a class="menu mx-2" href="disconnection.php">Se déconnecter</a>
+            </li>
+            <?php
+          }
+          //else we display the connecting link
+          else{
+            ?>
+            <li class="nav-item ml-auto dropdown">
+              <a class="menu dropdown-toggle mx-2" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Se connecter
+              </a>
+
+              <!-- showing the form in order to log into the admin session -->
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <form class="p-2" method="post" action="admin.php">
+                  <input type="text" class="form-control my-1" placeholder="Login" name="username">
+                  <input type="text" class="form-control my-1" placeholder="Mot de Passe" name="motdepasse">
+                  <input type="submit" name="connexionButton" value="Log In" class="btn w-100 my-1 colorButton">
+                </form>
+              </div>
+            </li>
+            <?php
+          }
+          ?>
+
+          <!-- using a javascript function to increment the cart -->
+          <!-- we should update this by using a cookie or a session global var -->
           <li class="nav-item ml-auto">
             <a class="disabled mx-2 font-italic" href="">Panier(<span id="cartItem">0</span>)</a>
           </li>

@@ -1,59 +1,44 @@
 <?php
+//starting session at the start of each page
+session_start();
 
-
-// $products = [
-//   [
-//     'name' => 'Chaussures Checkerboard Classic',
-//     'description' => "Chaussures basses sans lacets, les Classic Slip-On sont dotées de finitions élastiques sur les côtés et d'un col rembourré pour plus de confort.",
-//     'price' => '€ 65,00',
-//     'picture' => 'basket1_blanc.png'
-//   ],
-//   [
-//     'name' => 'Chaussures en daim Authentic',
-//     'description' => "Chaussures basses à lacets, les Authentic en daim de Vans arborent des coutures classiques et l'étiquette de la marque. Elles reposent sur une semelle extérieure gaufrée pour une adhérence accrue.",
-//     'price' => '€ 80,00',
-//     'picture' => 'basket2_bleu.png'
-//   ],
-//   [
-//     'name' => 'Chaussures Sk8-Hi MTE',
-//     'description' => "Sa semelle vulcanisée crantée offre une adhérence optimale tandis que son bout renforcé résiste à l'usure. Un col rembourré vient aussi offrir davantage de confort.",
-//     'price' => '€ 110,00',
-//     'picture' => 'basket3_beige.png'
-//   ],
-//   [
-//     'name' => 'Chaussures AVE Rapidweld Pro Lite',
-//     'description' => "Équipée d'une doublure intérieure Luxliner™ associée à sa construction Pro Vulc Lite, l'AV Rapidweld Pro allie légèreté, sensibilité et durabilité.",
-//     'price' => '€ 110,00',
-//     'picture' => 'basket4_blanc.png'
-//   ]
-// ];
+//showing the correct name product with the index
 $title = " - " . $products[$_GET['index']]['name'];
 include('header.php');
 
-$req = $bdd->query('SELECT sd.name AS name, sd.description AS description, sd.price AS price, si.name AS picture FROM shoes_description AS sd INNER JOIN shoes_image AS si ON si.id_shoes = sd.id');
+
+//getting all our product's informations
+$req = $bdd->query('SELECT sd.id AS id, sd.name AS name, sd.description AS description, sd.price AS price, si.name AS picture FROM shoes_description AS sd INNER JOIN shoes_image AS si ON si.id_shoes = sd.id');
 $products = $req->fetchAll();
+
+//getting all the shoe sizes
+$req2 = $bdd->query('SELECT ss.size AS size, ss.id_shoes AS id_shoes FROM shoes_description AS sd INNER JOIN shoes_size AS ss ON ss.id_shoes = sd.id');
+$sizes = $req2->fetchAll();
 
 ?>
 
-
+<!-- breadcrumb to show to the user where he is on the website -->
   <nav aria-label="breadcrumb" class="breadMargin">
     <ol class="breadcrumb mt-5">
       <li class="breadcrumb-item mt-5"><a href="index.php">Accueil</a></li>
+      <!-- showing the correct name product with the index -->
       <li class="breadcrumb-item active mt-5" aria-current="page"><?php echo $products[$_GET['index']]['name'] ?></li>
     </ol>
   </nav>
 
+<!-- used with a javascript function for ux experience when he adds a product to his cart -->
   <div id="addValidation" class="bg-success">
     <div class="d-flex">
       <p class="py-2 mx-auto pl-5 mt-2 font-italic">Votre article a bien été ajouté au panier !</p>
+      <!-- hide this message -->
       <i class="fas fa-times-circle my-auto mr-3" id="closeValidation"></i>
     </div>
   </div>
 
   <div class="container my-4 pb-3">
 
+  <!-- basicly we are just getting the correct information with the index key  -->
     <div class="row p-0">
-
       <div class="col-12 col-md-6 mt-2 basketImage">
         <img src="<?php echo $products[$_GET['index']]['picture'] ?>" alt="first picture of basket" class="img-fluid">
       </div>
@@ -63,40 +48,50 @@ $products = $req->fetchAll();
         <p class="description">Description</p>
         <p class="aboutDescription"><?php echo $products[$_GET['index']]['description'] ?></p>
 
+<!-- wanted to add differents colors with differents images for each products -->
+<!-- probably useless part at the moment -->
         <div class="productColor d-flex mt-4">
-          <div class="firstColor clickActive d-flex justify-content-center align-items-center activeTouch">
+          <div class="firstColor d-flex justify-content-center align-items-center">
             Rouge
           </div>
-          <div class="secondColor clickActive d-flex justify-content-center align-items-center">
+          <div class="secondColor d-flex justify-content-center align-items-center">
             Blanc
           </div>
-          <div class="thirdColor clickActive d-flex justify-content-center align-items-center">
+          <div class="thirdColor d-flex justify-content-center align-items-center">
             Noir
           </div>
         </div>
 
+
         <div class="shoeSizeList d-flex flex-wrap mt-3">
-          <div class="shoeSize mb-3 font-weight-bold d-flex justify-content-center align-items-center">
-            39
+
+        <?php
+        // as all our sizes are in an array we use a foreach for display them
+        foreach($sizes as $size){
+          // but we keep only these which have the correct corresponding id with our product
+          if($size['id_shoes'] == $products[$_GET['index']]['id']){
+
+        ?>
+
+          <!-- and we display them  -->
+          <div class="shoeSize clickActive mb-3 font-weight-bold d-flex justify-content-center align-items-center">
+
+            <?php echo $size['size']; ?>
+
           </div>
-          <div class="shoeSize mb-3 font-weight-bold d-flex justify-content-center align-items-center">
-            40
-          </div>
-          <div class="shoeSize mb-3 font-weight-bold d-flex justify-content-center align-items-center">
-            41
-          </div>
-          <div class="shoeSize mb-3 font-weight-bold d-flex justify-content-center align-items-center">
-            42
-          </div>
-          <div class="shoeSize mb-3 font-weight-bold d-flex justify-content-center align-items-center">
-            43
-          </div>
-          <div class="shoeSize mb-3 font-weight-bold d-flex justify-content-center align-items-center">
-            44
-          </div>
+
+        <?php
+          }
+        }
+
+        ?>
+
         </div>
+
         <div class="d-flex justify-content-between">
+          <!-- just showing price to the user -->
           <p class="description mt-2">€ <?php echo $products[$_GET['index']]['price'] ?>,00</p>
+          <!-- little button used for cart incrementation, using a jquery function but maybe should use cookie or session global var for incrementation -->
           <button type="submit" class="btn colorButton" id="addCart">Ajouter au panier</button>
         </div>
       </div>
