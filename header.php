@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+try {
+  $bdd = new PDO('mysql:host=localhost;dbname=YesWeSell;charset=utf8', 'root', 'Atbocslat1', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+}
+catch (\Exception $e) {
+  die('Erreur : ' . $e->getMessage());
+}
+ ?>
+
 <!doctype html>
 <html class="no-js" lang="fr">
 
@@ -42,18 +54,10 @@
           Se connecter
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <!-- <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a> -->
           <form class="p-2" method="post" action="admin.php">
-            <!-- <div class="input-group"> -->
-              <!-- <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">@</span>
-              </div> -->
-              <input type="text" class="form-control my-1" placeholder="Login">
-              <input type="text" class="form-control my-1" placeholder="Mot de Passe">
+              <input type="text" class="form-control my-1" placeholder="Login" name="username">
+              <input type="text" class="form-control my-1" placeholder="Mot de Passe" name="motdepasse">
               <input type="submit" name="connexionButton" value="Log In" class="btn w-100 my-1 colorButton">
-            <!-- </div> -->
           </form>
         </div>
       </li>

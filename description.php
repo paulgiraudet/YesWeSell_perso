@@ -1,33 +1,37 @@
 <?php
 
-$products = [
-  [
-    'name' => 'Chaussures Checkerboard Classic',
-    'description' => "Chaussures basses sans lacets, les Classic Slip-On sont dotées de finitions élastiques sur les côtés et d'un col rembourré pour plus de confort.",
-    'price' => '€ 65,00',
-    'picture' => 'basket1_blanc.png'
-  ],
-  [
-    'name' => 'Chaussures en daim Authentic',
-    'description' => "Chaussures basses à lacets, les Authentic en daim de Vans arborent des coutures classiques et l'étiquette de la marque. Elles reposent sur une semelle extérieure gaufrée pour une adhérence accrue.",
-    'price' => '€ 80,00',
-    'picture' => 'basket2_bleu.png'
-  ],
-  [
-    'name' => 'Chaussures Sk8-Hi MTE',
-    'description' => "Sa semelle vulcanisée crantée offre une adhérence optimale tandis que son bout renforcé résiste à l'usure. Un col rembourré vient aussi offrir davantage de confort.",
-    'price' => '€ 110,00',
-    'picture' => 'basket3_beige.png'
-  ],
-  [
-    'name' => 'Chaussures AVE Rapidweld Pro Lite',
-    'description' => "Équipée d'une doublure intérieure Luxliner™ associée à sa construction Pro Vulc Lite, l'AV Rapidweld Pro allie légèreté, sensibilité et durabilité.",
-    'price' => '€ 110,00',
-    'picture' => 'basket4_blanc.png'
-  ]
-];
+
+// $products = [
+//   [
+//     'name' => 'Chaussures Checkerboard Classic',
+//     'description' => "Chaussures basses sans lacets, les Classic Slip-On sont dotées de finitions élastiques sur les côtés et d'un col rembourré pour plus de confort.",
+//     'price' => '€ 65,00',
+//     'picture' => 'basket1_blanc.png'
+//   ],
+//   [
+//     'name' => 'Chaussures en daim Authentic',
+//     'description' => "Chaussures basses à lacets, les Authentic en daim de Vans arborent des coutures classiques et l'étiquette de la marque. Elles reposent sur une semelle extérieure gaufrée pour une adhérence accrue.",
+//     'price' => '€ 80,00',
+//     'picture' => 'basket2_bleu.png'
+//   ],
+//   [
+//     'name' => 'Chaussures Sk8-Hi MTE',
+//     'description' => "Sa semelle vulcanisée crantée offre une adhérence optimale tandis que son bout renforcé résiste à l'usure. Un col rembourré vient aussi offrir davantage de confort.",
+//     'price' => '€ 110,00',
+//     'picture' => 'basket3_beige.png'
+//   ],
+//   [
+//     'name' => 'Chaussures AVE Rapidweld Pro Lite',
+//     'description' => "Équipée d'une doublure intérieure Luxliner™ associée à sa construction Pro Vulc Lite, l'AV Rapidweld Pro allie légèreté, sensibilité et durabilité.",
+//     'price' => '€ 110,00',
+//     'picture' => 'basket4_blanc.png'
+//   ]
+// ];
 $title = " - " . $products[$_GET['index']]['name'];
 include('header.php');
+
+$req = $bdd->query('SELECT sd.name AS name, sd.description AS description, sd.price AS price, si.name AS picture FROM shoes_description AS sd INNER JOIN shoes_image AS si ON si.id_shoes = sd.id');
+$products = $req->fetchAll();
 
 ?>
 
@@ -51,7 +55,7 @@ include('header.php');
     <div class="row p-0">
 
       <div class="col-12 col-md-6 mt-2 basketImage">
-        <img src="img/<?php echo $products[$_GET['index']]['picture'] ?>" alt="first picture of basket" class="img-fluid">
+        <img src="<?php echo $products[$_GET['index']]['picture'] ?>" alt="first picture of basket" class="img-fluid">
       </div>
 
       <div class="col-12 col-md-6 mt-2">
@@ -92,7 +96,7 @@ include('header.php');
           </div>
         </div>
         <div class="d-flex justify-content-between">
-          <p class="description mt-2"><?php echo $products[$_GET['index']]['price'] ?></p>
+          <p class="description mt-2">€ <?php echo $products[$_GET['index']]['price'] ?>,00</p>
           <button type="submit" class="btn colorButton" id="addCart">Ajouter au panier</button>
         </div>
       </div>
