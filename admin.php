@@ -12,17 +12,14 @@ catch (\Exception $e) {
 
 //getting all the username and password from database
 $reqLog = $bdd->query('SELECT name, password FROM members');
-$logs = $reqLog->fetchAll();
+$logs = $reqLog->fetch();
 
 //here is a function used for crypting passwords but there was a little problem unsolved so i didn't use it for the moment
 
 // $pass_hash = password_hash($_POST['motdepasse'], PASSWORD_DEFAULT);
 
-// comparing each logs with the admin one's
-foreach ($logs as $log) {
-
 //getting here even if our session is already in admin mode
-if (((isset($_POST['username']) AND htmlspecialchars($_POST['username']) == $log['name']) AND (isset($_POST['motdepasse']) AND $_POST['motdepasse'] == $log['password'])) OR (($_SESSION['username'] == 'admin') AND ($_SESSION['password'] == 'admin'))){
+if (((isset($_POST['username']) AND htmlspecialchars($_POST['username']) == $logs['name']) AND (isset($_POST['motdepasse']) AND $_POST['motdepasse'] == $logs['password'])) OR (($_SESSION['username'] == 'admin') AND ($_SESSION['password'] == 'admin'))){
 
   $_SESSION['username'] = 'admin';
   $_SESSION['password'] = 'admin';
@@ -36,7 +33,7 @@ if (((isset($_POST['username']) AND htmlspecialchars($_POST['username']) == $log
 
       <h2 class="mt-5 text-center">Ajout d'un produit :</h2>
 
-      <!-- little form permitting to add a new product to our differents tables -->
+      <!-- form permitting to add a new product to our differents tables -->
       <form class="mt-5 d-flex flex-column form-group" action="verif.php" method="post" enctype="multipart/form-data">
 
         <label for="name">Nom du produit</label>
@@ -81,6 +78,6 @@ else{
 <?php
 }
 
-}
+
 
 ?>

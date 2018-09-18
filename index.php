@@ -6,7 +6,6 @@ $index = "";
 $title = " - Accueil";
 include('header.php');
 
-
 ?>
 
   <!-- breadcrumb to show to the user where he is on the website -->

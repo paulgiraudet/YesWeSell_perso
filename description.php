@@ -2,10 +2,13 @@
 //starting session at the start of each page
 session_start();
 
-//showing the correct name product with the index
-$title = " - " . $products[$_GET['index']]['name'];
-include('header.php');
-
+//connexion to the sql database
+try {
+  $bdd = new PDO('mysql:host=localhost;dbname=YesWeSell;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+}
+catch (\Exception $e) {
+  die('Erreur : ' . $e->getMessage());
+}
 
 //getting all our product's informations
 $req = $bdd->query('SELECT sd.id AS id, sd.name AS name, sd.description AS description, sd.price AS price, si.name AS picture FROM shoes_description AS sd INNER JOIN shoes_image AS si ON si.id_shoes = sd.id');
@@ -14,6 +17,11 @@ $products = $req->fetchAll();
 //getting all the shoe sizes
 $req2 = $bdd->query('SELECT ss.size AS size, ss.id_shoes AS id_shoes FROM shoes_description AS sd INNER JOIN shoes_size AS ss ON ss.id_shoes = sd.id');
 $sizes = $req2->fetchAll();
+
+
+//showing the correct name product with the index
+$title = " - " . $products[$_GET['index']]['name'];
+include('header.php');
 
 ?>
 

@@ -81,7 +81,7 @@ catch (\Exception $e) {
             <?php
           }
           ?>
-
+<!-- <span id="cartItem">0</span> -->
           <!-- using a javascript function to increment the cart -->
           <!-- we should update this by using a cookie or a session global var -->
           <li class="nav-item ml-auto">
